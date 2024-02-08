@@ -1,0 +1,12 @@
+triggers:
+- envs: []
+  last_enabled_at: 2024-02-08 09:32:32.733309
+  name: homework2
+  pipeline_uuid: green_taxi_etl
+  schedule_interval: 0 5 * * *
+  schedule_type: time
+  settings: null
+  sla: null
+  start_time: 2024-02-08 09:10:00
+  status: inactive
+  variables: {}
