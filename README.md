@@ -1,4 +1,4 @@
-# DEZoomcamp - Data Engineer Zoomcamp
+## DEZoomcamp - Data Engineer Zoomcamp
 
 - ### 01-docker-terraform: Module 1 working
 
@@ -7,6 +7,7 @@
 
 - ### 02-workflow-orchestration: Module 2 working
 
+  - #### green-taxi-etl: Homework-2 mage files
   - #### homework-2
   - #### mage-ai-terraform-templates
   - #### mage-zoomcamp
