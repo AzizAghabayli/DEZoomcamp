@@ -12,4 +12,8 @@
   - #### mage-ai-terraform-templates
   - #### mage-zoomcamp
 
+- ### 03-data-warehouse: Module 3 working
+
+  - #### homework-3
+
 - ### data-engineering-zoomcamp: original clone
