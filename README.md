@@ -16,4 +16,8 @@
 
   - #### homework-3
 
+- ### 03-workshop-1
+
+  - #### Homework_data_talks_club_data_extraction_and_ingestion.ipynb
+
 - ### data-engineering-zoomcamp: original clone
