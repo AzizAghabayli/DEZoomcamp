@@ -104,5 +104,30 @@ WHERE trips_count.avg_trip_time = max_avg_trip_time.max_avg;
 _What are the top 3 busiest zones in terms of number of pickups?_
 
 ```sql
+WITH time_interval AS (
+  SELECT
+    MAX(tpep_pickup_datetime) - INTERVAL '17 hours' AS start_time,
+    MAX(tpep_pickup_datetime) AS end_time
+  FROM trip_data
+)
+SELECT
+	t1.Zone AS pickup_zone,
+	COUNT(*) AS number_of_pu
+FROM trip_data
+JOIN taxi_zone AS t1 ON trip_data.PULocationID = t1.location_id
+JOIN time_interval ON trip_data.tpep_pickup_datetime BETWEEN time_interval.start_time AND time_interval.end_time
+GROUP BY t1.Zone
+ORDER BY number_of_pu DESC
+LIMIT 3;
+```
 
+##### Output:
+
+```
+     pickup_zone     | number_of_pu
+---------------------+--------------
+ LaGuardia Airport   |           19
+ JFK Airport         |           17
+ Lincoln Square East |           17
+(3 rows)
 ```
