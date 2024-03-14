@@ -6,16 +6,16 @@ _Create a materialized view to compute the average, min and max trip time betwee
 
 ```sql
 CREATE MATERIALIZED VIEW trip_times AS
-	SELECT
-		t1.Zone AS pickup_zone,
-		t2.Zone AS dropoff_zone,
-		MAX(tpep_dropoff_datetime - tpep_pickup_datetime) AS max_trip_time,
-		MIN(tpep_dropoff_datetime - tpep_pickup_datetime) AS min_trip_time,
-		AVG(tpep_dropoff_datetime - tpep_pickup_datetime) AS avg_trip_time
-	FROM trip_data
-	JOIN taxi_zone AS t1 ON trip_data.PULocationID = t1.location_id
-	JOIN taxi_zone AS t2 ON trip_data.DOLocationID = t2.location_id
-	GROUP BY t1.Zone, t2.Zone;
+    SELECT
+        t1.Zone AS pickup_zone,
+        t2.Zone AS dropoff_zone,
+        MAX(tpep_dropoff_datetime - tpep_pickup_datetime) AS max_trip_time,
+        MIN(tpep_dropoff_datetime - tpep_pickup_datetime) AS min_trip_time,
+        AVG(tpep_dropoff_datetime - tpep_pickup_datetime) AS avg_trip_time
+    FROM trip_data
+    JOIN taxi_zone AS t1 ON trip_data.PULocationID = t1.location_id
+    JOIN taxi_zone AS t2 ON trip_data.DOLocationID = t2.location_id
+    GROUP BY t1.Zone, t2.Zone;
 ```
 
 ##### Output:
@@ -73,15 +73,15 @@ _Find the number of trips for the pair of taxi zones with the highest average tr
 
 ```sql
 CREATE MATERIALIZED VIEW trips_count AS
-	SELECT
-		t1.Zone AS pickup_zone,
-		t2.Zone AS dropoff_zone,
-		AVG(tpep_dropoff_datetime - tpep_pickup_datetime) AS avg_trip_time,
-		COUNT(*) AS number_of_trips
-	FROM trip_data
-	JOIN taxi_zone AS t1 ON trip_data.PULocationID = t1.location_id
-	JOIN taxi_zone AS t2 ON trip_data.DOLocationID = t2.location_id
-	GROUP BY t1.Zone, t2.Zone;
+    SELECT
+        t1.Zone AS pickup_zone,
+        t2.Zone AS dropoff_zone,
+        AVG(tpep_dropoff_datetime - tpep_pickup_datetime) AS avg_trip_time,
+        COUNT(*) AS number_of_trips
+    FROM trip_data
+    JOIN taxi_zone AS t1 ON trip_data.PULocationID = t1.location_id
+    JOIN taxi_zone AS t2 ON trip_data.DOLocationID = t2.location_id
+    GROUP BY t1.Zone, t2.Zone;
 ```
 
 ```sql
@@ -99,35 +99,10 @@ WHERE trips_count.avg_trip_time = max_avg_trip_time.max_avg;
 (1 row)
 ```
 
-### Question 3:
+### Question 2:
 
 _What are the top 3 busiest zones in terms of number of pickups?_
 
 ```sql
-WITH time_interval AS (
-  SELECT
-    MAX(tpep_pickup_datetime) - INTERVAL '17 hours' AS start_time,
-    MAX(tpep_pickup_datetime) AS end_time
-  FROM trip_data
-)
-SELECT
-	t1.Zone AS pickup_zone,
-	COUNT(*) AS number_of_pu
-FROM trip_data
-JOIN taxi_zone AS t1 ON trip_data.PULocationID = t1.location_id
-JOIN time_interval ON trip_data.tpep_pickup_datetime BETWEEN time_interval.start_time AND time_interval.end_time
-GROUP BY t1.Zone
-ORDER BY number_of_pu DESC
-LIMIT 3;
-```
 
-##### Output:
-
-```
-     pickup_zone     | number_of_pu
----------------------+--------------
- LaGuardia Airport   |           19
- JFK Airport         |           17
- Lincoln Square East |           17
-(3 rows)
 ```
